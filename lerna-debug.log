@@ -1,0 +1,16 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   dev: true,
+0 silly argv   D: true,
+0 silly argv   scope: 'img-compress',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': 'C:\\Users\\hua-cloud\\AppData\\Roaming\\npm\\node_modules\\lerna\\cli.js',
+0 silly argv   pkg: 'wwebpack-cli'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath E:\webspace\jsTools
+3 info versioning independent
+4 error TypeError: Cannot convert undefined or null to object
+4 error     at Function.keys (<anonymous>)
+4 error     at module.exports (E:\webspace\jsTools\node_modules\npm-pick-manifest\index.js:213:22)
