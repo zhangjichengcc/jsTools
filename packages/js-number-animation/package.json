@@ -1,5 +1,5 @@
 {
-  "name": "number-animation",
+  "name": "js-number-animation",
   "version": "1.0.0",
   "description": "数字变化动画",
   "keywords": [
@@ -23,7 +23,8 @@
     "url": "git+https://github.com/zhangjichengcc/jsTools.git"
   },
   "scripts": {
-    "build": "npx tsc lib/main.ts"
+    "build": "npx tsc lib/main.ts",
+    "publish": "yarn build && npm publish"
   },
   "bugs": {
     "url": "https://github.com/zhangjichengcc/jsTools/issues"
