@@ -1,0 +1,34 @@
+{
+  "name": "number-animation",
+  "version": "1.0.0",
+  "description": "数字变化动画",
+  "keywords": [
+    "number",
+    "animation",
+    "javascript"
+  ],
+  "author": "zhangjicheng <zhangjichengcc@163.com>",
+  "homepage": "https://github.com/zhangjichengcc/jsTools#readme",
+  "license": "ISC",
+  "main": "lib/main.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangjichengcc/jsTools.git"
+  },
+  "scripts": {
+    "build": "npx tsc lib/main.ts"
+  },
+  "bugs": {
+    "url": "https://github.com/zhangjichengcc/jsTools/issues"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.2"
+  }
+}
