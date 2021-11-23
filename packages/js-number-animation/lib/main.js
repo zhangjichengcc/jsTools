@@ -1,17 +1,25 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 14:12:50
- * @LastEditTime: 2021-11-22 20:22:58
+ * @LastEditTime: 2021-11-23 16:20:11
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \jsTools\packages\number-animation\lib\main.ts
  */
 'use strict';
+var defaultConfig = {
+    begin: 0,
+    during: 1000,
+    step: 'auto',
+    decimals: 0
+};
 var NumberAnimation = /** @class */ (function () {
     function NumberAnimation(config) {
-        this.begin = config.begin || 0;
-        this.during = config.during || 300;
-        this.step = config.step || 11;
+        if (config === void 0) { config = defaultConfig; }
+        this.begin = config.begin;
+        this.during = config.during;
+        this.decimals = config.decimals;
+        this.step = config.step;
     }
     NumberAnimation.prototype.onChange = function (onChange) {
         if (typeof onChange !== 'function') {
@@ -28,26 +36,51 @@ var NumberAnimation = /** @class */ (function () {
     };
     // 开始
     NumberAnimation.prototype.start = function (num) {
-        if (num < this.begin) {
-            console.error('Param must be greater than start!');
-            return;
-        }
+        debugger;
         this.end = num;
         var that = this;
+        var tag = this.end > this.begin ? '+' : '-';
+        var decimals = this.decimals || Math.max((this.end.toString().split('.')[1] || '').length, (this.begin.toString().split('.')[1] || '').length);
         var length = this.end - this.begin; // 变化总长度
-        var steps = Math.floor(length / this.step); // 总步数           
-        var timeout = Math.floor(this.during / steps);
+        var step = // 步长
+         typeof this.step === 'number' ?
+            this.step :
+            Number((length / this.during * 20).toFixed(10));
+        if (step === 0) {
+            console.warn('The start stop interval is too short. Please try setting the during or step manually');
+            return;
+        }
+        var steps = Math.ceil(length / step); // 总步数           
+        var timeout = this.during / steps;
+        var timer = null;
+        var temp = this.begin;
         (function interval() {
-            that.begin = Math.min(that.begin + that.step, that.end);
-            that.onHandleChange && that.onHandleChange(that.begin);
+            that.begin = tag === '+' ?
+                Math.min(that.add(that.begin, step), that.end) :
+                Math.max(that.add(that.begin, step), that.end);
+            if (that.onHandleChange) {
+                // 记录每次格式化后的值，当两次格式化后的值相等时不触发onChange
+                var value = Number(that.begin.toFixed(decimals));
+                if (value !== temp) {
+                    that.onHandleChange(value);
+                }
+                temp = value;
+            }
             if (that.begin === that.end) {
                 that.onFinally && that.onFinally(that);
                 return;
             }
-            setTimeout(function () {
+            timer = setTimeout(function () {
+                clearTimeout(timer);
                 interval();
             }, timeout);
         })();
+    };
+    NumberAnimation.prototype.add = function (num1, num2) {
+        var num1Digits = (num1.toString().split('.')[1] || '').length;
+        var num2Digits = (num2.toString().split('.')[1] || '').length;
+        var baseNum = Math.pow(10, Math.max(num1Digits, num2Digits));
+        return (num1 * baseNum + num2 * baseNum) / baseNum;
     };
     NumberAnimation.prototype["finally"] = function (onFinally) {
         if (typeof onFinally !== 'function') {

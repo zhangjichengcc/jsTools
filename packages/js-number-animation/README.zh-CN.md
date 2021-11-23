@@ -9,11 +9,11 @@
   <a href="./README.md">English</a> | <a href="./README.zh-CN.md">中文</a>
 </p>
 
-> Digital change animation
+> 数字变化动画
 
 ---
 
-## Usage
+## 使用
 
 ``` js
 const numberAnimation = require('js-number-animation');
@@ -39,9 +39,9 @@ numAmt.start(200);
 
 ```
 
-## description
+## 介绍
 
-### NumberAnimation config
+### NumberAnimation 配置项
 
 |name|description|default|type|
 |-|-|-|-|
@@ -50,27 +50,27 @@ numAmt.start(200);
 |step|Variable Delta|'auto'|'auto'/number|
 |decimals|decimal digit|-|number|
 
-### methods
+### 原型方法
 
 ``` js
-numberAnimation.onChange(fn: Function) // Triggered on change
+numberAnimation.onChange(fn: Function) // 数字变化触发
 
-numberAnimation.setBegin(num: number) // Set begin number
+numberAnimation.setBegin(num: number) // 设置初始数值
 
-numberAnimation.getValue() // Get current end value
+numberAnimation.getValue() // 获取当前值
 
-numberAnimation.finally(obj: NumberAnimation) // Trigger at end
+numberAnimation.finally(obj: NumberAnimation) // 变化接触触发
 
-numberAnimation.start(num: number) // Specify the end value and execute the method
+numberAnimation.start(num: number) // 设置变化结束值，并开始执行
 ```
 
 ## tips
 
-- ~~Value must be an integer~~
+- ~~值必须为正整数~~
 
-- We have calculated the optimal configuration based on the value,Unnecessary, don't customize step
+- 我们已经计算了相对合理的间隔时间和变化步长，非必要请不要设置 `step`
 
-- At the end, the start of the object is the end value, which can be called in a chain.
+- 结束时，`NumberAnimation` 实例的 `begin` 为结束时的值，你可以继续用该实例进行链式调用.
 
 ``` js
 var numberAnimation = new NumberAnimation();
@@ -87,8 +87,8 @@ numberAnimation.start(100);
 ## Historical version
 
 - v1.0.0:
-  - Basic version
+  - 基础版本
 
 - v1.1.0:
-  - Solve known problems
-  - Supports negative numbers and decimals
+  - 解决了一些已知的问题
+  - 支持负数和小数
