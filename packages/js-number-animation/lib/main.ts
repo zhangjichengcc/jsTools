@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 14:12:50
- * @LastEditTime: 2021-11-23 16:20:11
+ * @LastEditTime: 2021-11-23 17:32:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \jsTools\packages\number-animation\lib\main.ts
@@ -19,6 +19,9 @@ interface Config {
    * 步长
    */
   step?: number | 'auto';
+  /**
+   * 保留小数点后几位
+   */
   decimals?: number;
 }
 
@@ -62,7 +65,6 @@ class NumberAnimation {
 
   // 开始
   start(num: number) {
-    debugger
     this.end = num;
     const that = this;
     const tag = this.end > this.begin ? '+' : '-';

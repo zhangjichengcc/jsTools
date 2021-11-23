@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-11-22 14:12:50
- * @LastEditTime: 2021-11-23 16:20:11
+ * @LastEditTime: 2021-11-23 17:32:46
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \jsTools\packages\number-animation\lib\main.ts
@@ -36,7 +36,6 @@ var NumberAnimation = /** @class */ (function () {
     };
     // 开始
     NumberAnimation.prototype.start = function (num) {
-        debugger;
         this.end = num;
         var that = this;
         var tag = this.end > this.begin ? '+' : '-';

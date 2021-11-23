@@ -1,6 +1,6 @@
 {
   "name": "js-number-animation",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "数字变化动画",
   "keywords": [
     "number",
@@ -32,5 +32,6 @@
   "devDependencies": {
     "typescript": "^4.5.2"
   },
-  "gitHead": "5e5e408315946629360f71dbeb5a87d28cd84851"
+  "gitHead": "5e5e408315946629360f71dbeb5a87d28cd84851",
+  "dependencies": {}
 }
