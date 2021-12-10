@@ -4,18 +4,19 @@
   "description": "图片压缩工具",
   "keywords": [
     "images",
-    "javascript"
+    "javascript",
+    "canvas"
   ],
   "author": "zhangjicheng <zhangjichengcc@163.com>",
   "homepage": "",
   "license": "ISC",
-  "main": "dist/main.js",
+  "main": "bin/main.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
   },
   "files": [
-    "dist"
+    "bin"
   ],
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1",
