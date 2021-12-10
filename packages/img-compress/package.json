@@ -1,5 +1,5 @@
 {
-  "name": "img-compress",
+  "name": "imgs-compress",
   "version": "1.0.2-alpha.0",
   "description": "图片压缩工具",
   "keywords": [
@@ -32,5 +32,5 @@
     "webpack": "^5.64.1",
     "webpack-cli": "^4.9.1"
   },
-  "gitHead": "8c6bd1a04d47cbc413f17f53aa16ef984be3da5a"
+  "gitHead": "3fbffe11a5d5aebeeaf0c89122eb239e2254f004"
 }
