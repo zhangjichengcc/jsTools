@@ -1,6 +1,6 @@
 {
   "name": "imgs-compress",
-  "version": "1.0.1-alpha.0",
+  "version": "1.0.1",
   "description": "图片压缩工具",
   "keywords": [
     "images",
