@@ -1,18 +1,19 @@
 /*
  * @Author: your name
  * @Date: 2021-11-19 15:11:33
- * @LastEditTime: 2021-12-10 16:23:23
+ * @LastEditTime: 2021-12-20 17:28:37
  * @LastEditors: Please set LastEditors
  * @Description: 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  * @FilePath: \jsTools\packages\img-compress\lib\img-compress.js
  */
 'use strict';
 
+const accept = ['jpg', 'jpeg', 'png', 'webp'];
 
 function compressBlob(canvas, quality): Promise<{dataURL: string, blob: Blob}> {
   const type = "image/jpeg"; // 只有jpeg格式图片支持图片质量压缩
   const dataURL = canvas.toDataURL(type, quality);
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     canvas.toBlob(function(blob) {
       resolve({
         dataURL,
@@ -73,10 +74,12 @@ function compressCaculation(canvas, maxSize): Promise<{dataURL: string, blob: Bl
       }
       if(count < 10 && size !== maxSize) { // 默认循环不大于10次，认为10次内的结果已足够接近
         partition();
+      } else if (count > 30) {
+        reject(res);
       } else if(size > maxSize) { // 若限制次数之后size > maxSize，则继续执行，至结果小于maxSize
         partition();
       } else {
-        resolve(res);
+        reject(res);
       }
     }
     fn();
@@ -89,8 +92,10 @@ function compress(file, maxSize = 13, scale = 0.5): Promise<{name: string, dataU
     size: sourceSize,
     name,
   } = file;
-  const fileType = name.replace(/^.*\.(\w*)$/, '$1').toLowerCase();
-  if (!['jpg', 'jpeg', 'png', 'webp'].includes(fileType)) return Promise.reject('文件格式不支持！');
+  let [_fileName, targetName, fileType] = name.match(/(\w+)\.(\w+$)/);
+  fileType = fileType.toLowerCase();
+  // const fileType = name.replace(/^.*\.(\w*)$/, '$1').toLowerCase();
+  if (!accept.includes(fileType)) return Promise.reject(`文件格式不支持！请传入${accept.join('、').replace(/、(?=\w+$)/, '或')}格式的文件`);
   const blobUrl = URL.createObjectURL(file);
   const img = new Image();
   const canvas = document.createElement('canvas');
@@ -121,8 +126,14 @@ function compress(file, maxSize = 13, scale = 0.5): Promise<{name: string, dataU
       compressCaculation(canvas, maxSize).then(res => {
         console.log('压缩完成，压缩前：', sourceSize, ' => 压缩后：', res.blob.size);
         resolve({
-          name,
+          name: targetName,
           ...res,
+        })
+      }).catch(res => {
+        reject({
+          name: targetName,
+          ...res,
+          message: '无法压缩至指定大小，请重设maxSize或scale尝试'
         })
       })
     }
